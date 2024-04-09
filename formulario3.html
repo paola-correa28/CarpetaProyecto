@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title>DATOS DE ENTRADA DE PROVEEDORES</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <div class="w3-row">
+        <div class="w3-container w3-padding">
+            <style>
+                h1 {
+                    text-align: center;
+                }
+            </style>
+            <div class="w3-row">
+                <div class="w3-container w3-padding">
+                    <div class="w3-container w3-black">
+                        <a href="formulario1.html" class="w3-bar-item w3-button">INGRESO DE PRODUCTOS</a>
+                        <a href="formulario2.html" class="w3-bar-item w3-button">INGRESO DE FACTURAS</a>
+                        <a href="formulario3.html" class="w3-bar-item w3-button">INGRESO DE PROVEEDORES</a>
+                        <a href="formulario4.html" class="w3-bar-item w3-button">INGRESO DE EMPLEADOS</a>
+                        <a href="formulario5.html" class="w3-bar-item w3-button">COMPRAS DE CLIENTES</a>
+                    </div>
+</head>
+
+<body>
+    <div class="w3-row">
+        <div class="w3-col m5 14">
+            <div class="w3-container w3-padding">
+                <div class="w3-container w3-black">
+                    <h1>Entrada de Proveedores</h1>
+                </div>
+                <form action="Guardar" id="entproveedor" href="#" class="w3-containe">
+
+                    <br><label for="localizacion">Localizacion de proveedor:</label>
+                    <input type="text" class="w3-input" id="localizacion" name="localizacion" required><br>
+
+                    seleccione la condicion de pago
+                    <br><select name="condpago">
+                        <option value="1">Tranferencia</option>
+                        <option value="1">Tarjeta de credito</option>
+                        <option value="1">Pago en efectivo</option>
+                        <option value="1">Cheque</option>
+                    </select><br>
+
+                    <br><label for="volventas">Volumen de producto:</label>
+                    <input type="number" class="w3-input" id="volventas" name="volventas" required><br>
+
+                    <br><label for="nomproveedor">Nombre del proveedor:</label>
+                    <input type="text" class="w3-input" id="nomproveedor" name="nomproveedor" required><br>
+
+                    <br><label for="emailproveedor">Correo del proveedor:</label>
+                    <input type="email" class="w3-input" id="emailproveedor" name="emailproveedor" required><br>
+
+                    <br><label for="prosoliproveedor">producto solicitado:</label>
+                    <input type="text" class="w3-input" id="prosoliproveedor" name="prosoliproveedor" required><br>
+
+                    Selecciona la fecha de entrega:
+                    <br><input type="datetime-local" value="2024-07-23T11:00" min="2024-02-23T11:00"
+                        max="2024-12-23T11:00" step="3600">
+
+                    <br><label for="costproveedor">costo por unidad:</label>
+                    <input type="number" class="w3-input" id="costproveedor" name="costproveedor" required><br>
+
+                    <input type="submit" id="Enviar" value="Guardar">
+                    <p id="mip"></p>
+
+                    <a href="tabla2.html">PROVEEDORES</a> <a href="menuprincipal.html">ATRAS</a>
+                </form>
+                <script>
+                    //http://localhost/xampp/htdocs/TAREA/formulario3.html
+
+                    window.onload = function () {
+                        document.getElementById("Guardar").onclick = function (event) {
+                            event.preventDefault();
+                            let condicionpago = document.getElementById("condpago").value;
+                            let volumendeproducto = document.getElementById("volventas").value;
+                            let nombredeproveedor = document.getElementById("nomproveedor").value;
+                            let correodeproveedor = document.getElementById("emailproveedor").value;
+                            let productosolicitado = document.getElementById("prosoliproveddor").value;
+                            let costoporunidad = document.getElementById("costproveedor").value;
+
+                            let parametros = "?condpago=" + condicionpago + "&volventas=" + volumendeproducto + "&nomproveedor=" + nombredeproveedor +
+                                "&emailproveedor=" + correodeproveedor + "&prosoliproveddor=" + productosolicitado + "&costproveedor" + costoporunidad;
+
+                            let request = new Request('recibeformulario3.php' + parametros,
+                                {
+                                    method: 'get',
+                                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+                                });
+                            fetch(request).then(function (returnedValue) {
+                                if (returnedValue.ok) {
+                                    console.log("operacion correcta");
+                                    returnedValue.text().then((txt) => {
+                                        console.log('muestro respuesta: ', txt);
+                                        document.write('recibo de regreso: ', txt);
+                                    });
+                                }
+                            }).catch(function (err) {
+                                console.log(err);
+                            });
+                        }
+                    };
+                </script>
+</body>
+
+</html>

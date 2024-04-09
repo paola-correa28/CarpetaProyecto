@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title>DATOS DE ENTRADA DE VENDEDORES</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <div class="w3-row">
+        <div class="w3-container w3-padding">
+            <style>
+                h1 {
+                    text-align: center;
+                }
+            </style>
+            <div class="w3-row">
+                <div class="w3-container w3-padding">
+                    <div class="w3-container w3-black">
+                        <a href="formulario1.html" class="w3-bar-item w3-button">INGRESO DE PRODUCTOS</a>
+                        <a href="formulario2.html" class="w3-bar-item w3-button">INGRESO DE FACTURAS</a>
+                        <a href="formulario3.html" class="w3-bar-item w3-button">INGRESO DE PROVEEDORES</a>
+                        <a href="formulario4.html" class="w3-bar-item w3-button">INGRESO DE EMPLEADOS</a>
+                        <a href="formulario5.html" class="w3-bar-item w3-button">COMPRAS DE CLIENTES</a>
+
+                    </div>
+</head>
+
+<body>
+    <div class="w3-row">
+        <div class="w3-col m5 14">
+            <div class="w3-container w3-padding">
+                <div class="w3-container w3-black">
+                    <h1>Entrada de empleados</h1>
+                </div>
+                <form action="Guardar" id="entproveedor" href="#" class="w3-containe">
+
+                    <br><label for="idempleado">Id de empleado:</label>
+                    <input type="number" class="w3-input" id="idempleado" name="idempleado" required><br>
+
+                    <br><label for="nomempleado">Nombre del empleado:</label>
+                    <input type="text" class="w3-input" id="nomempleado" name="nomempleado" required><br>
+
+                    <br><label for="emailempleado">Correo del empleado:</label>
+                    <input type="email" class="w3-input" id="emailempleado" name="emailempleado" required><br>
+
+                    <br><label for="teclempleado">telefono:</label>
+                    <input type="number" class="w3-input" id="teclempleado" name="teclempleado" required><br>
+
+                    Selecciona la fecha de ingreso del empleado
+                    <br><input type="datetime-local" value="2024-07-23T11:00" min="2024-02-23T11:00"
+                        max="2024-12-23T11:00" step="3600">
+
+                    <br><label for="turno">turno del vendedor:</label>
+                    <input type="text" class="w3-input" id="turno" name="turno" required><br>
+
+                    Genero:
+                    <br><select name="genero">
+                        <option value="1">Mujer</option>
+                        <option value="1">Hombre</option>
+                    </select><br>
+
+                    <input type="submit" id="Enviar" value="Guardar">
+                    <p id="mip"></p>
+
+                    <a href="tabla4.html">EMPLEADOS</a> <a href="menuprincipal.html">ATRAS</a>
+                </form>
+                <script>
+                    //http://localhost/xampp/htdocs/TAREA/formulario4.html
+
+                    window.onload = function () {
+                        document.getElementById("Guardar").onclick = function (event) {
+                            event.preventDefault();
+                            let idempleado = document.getElementById("idempleado").value;
+                            let nombreempleado = document.getElementById("nomempleado").value;
+                            let correoempleado = document.getElementById("emailempleado").value;
+                            let teclempleado = document.getElementById("telefono").value;
+                            let turno = document.getElementById("turno").value;
+                            let genero = document.getElementById("genero").value;
+
+                            let parametros = "?idempleado=" + idempleado + "&nomempleado=" + nombreempleado + "&emailempleado" + correoempleado +
+                                "&telefono=" + teclempleado + "&turno=" + turno + "&genero=" + genero;
+
+                            let request = new Request('recibeformulario4.php' + parametros,
+                                {
+                                    method: 'get',
+                                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+                                });
+                            fetch(request).then(function (returnedValue) {
+                                if (returnedValue.ok) {
+                                    console.log("operacion correcta");
+                                    returnedValue.text().then((txt) => {
+                                        console.log('muestro respuesta: ', txt);
+                                        document.write('recibo de regreso: ', txt);
+                                    });
+                                }
+                            }).catch(function (err) {
+                                console.log(err);
+                            });
+                        }
+                    };
+                </script>
+</body>
+
+</html>
